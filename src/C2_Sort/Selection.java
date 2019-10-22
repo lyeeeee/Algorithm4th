@@ -98,7 +98,7 @@ public class Selection {
      */
     public static void sort(Object[] a, Comparator comparator) {
         int length = a.length;
-        for(int i = 0;i < length-1;++i){
+        for(int i = 0;i < length;++i){
             int minIndex = i;
             for(int j = i + 1;i < length;++j){
                 if(less(comparator, a[j], a[i]))
