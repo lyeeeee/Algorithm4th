@@ -1,4 +1,4 @@
-package C1_Foundmental;
+package C1_Foundmental.basicprogmodel;
 
 public class P1_1_27a {
     public static long count = 0;

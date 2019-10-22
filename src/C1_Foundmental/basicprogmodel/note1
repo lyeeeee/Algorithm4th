@@ -1,0 +1,8 @@
+Math.abs(-2147483648) = -2147483648
+
+将Double初始化为无穷大：Double.POSITIVE_INFINITY /Double.NEGATIVE_INFINITY
+
+int 和 double比较  java会进行自动类型转换 将int 转换成double
+
+1/0产生除零异常  1.0/0.0产生Infinity
+

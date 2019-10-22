@@ -1,4 +1,4 @@
-package C1_Foundmental;
+package C1_Foundmental.basicprogmodel;
 
 public class P_1_1_15 {
     public static int[] histogrem(int[] a,int M){

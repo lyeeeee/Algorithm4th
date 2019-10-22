@@ -1,4 +1,4 @@
-package C1_Foundmental;
+package C1_Foundmental.basicprogmodel;
 
 import StdLib.In;
 import StdLib.StdIn;
