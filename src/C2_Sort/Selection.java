@@ -6,7 +6,10 @@ import java.util.Comparator;
 
 /**
  * @program: Algorithm4th
- * @description: ${description}
+ * @description: 选择排序，运行时间与输入无关，上一次的扫描最小元素并不能给下次的扫描带来任何信息
+ * 算法的时间复杂度为O(n^2)       (n^2)/2次比较
+ *
+ * 数据移动是最少的，交换次数和数组的大小是线性关系
  * @author: liyi
  * @create: 2019-10-22 16:28
  */
