@@ -56,12 +56,24 @@ public class Quick {
      * {@code a[0]} through {@code a[k-1]} are less than (or equal to) {@code a[k]}; and
      * {@code a[k+1]} through {@code a[n-1]} are greater than (or equal to) {@code a[k]}.
      *
-     * @param  a the array
+     * @param  arr the array
      * @param  k the rank of the key
      * @return the key of rank {@code k}
      * @throws IllegalArgumentException unless {@code 0 <= k < a.length}
      */
-
+    public static Comparable select(Comparable[] arr, int k){
+        if(k > arr.length-1 || k < 0){
+            throw new IllegalArgumentException("index is not between 0 and " + arr.length + ": " + k);
+        }
+        int low = 0, high = arr.length - 1;
+        while(low < high){
+            int m = partition(arr, low ,high);
+            if(m < k) high = m -1;
+            else if(m > k) low = m + 1;
+            else return arr[k];
+        }
+        return arr[low];
+    }
 
 
 
