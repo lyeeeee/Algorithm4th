@@ -86,7 +86,7 @@ public class Merge {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        String[] a = new String[]{"a","g","y","z","b","c","c","d"};
+        String[] a = new String[]{"a","g","y","z","b","c","c","d","e","r","y","p","i","o","k","n","m"};
         sort(a);
         show(a);
     }
