@@ -29,10 +29,19 @@ public class InsertionX {
         }
         if(compare == 0) return;
 
-        for(int i = 1;i < n;++i){
-            for(int j = i; less(a[j],a[j-1]);--j){
-                exch(a, j, j-1);
-            }
+//        for(int i = 1;i < n;++i){
+//            for(int j = i; less(a[j],a[j-1]);--j){
+//                exch(a, j, j-1);
+//            }
+//        }
+
+        // insertion sort with half-exchanges
+        for(int i = 2;i < n; ++i){
+            Comparable v = a[i];
+            int j = i-1;
+            for(;less(v, a[j]);--j)
+                exch(a,j,j+1);
+            exch(a,j,i);
         }
         assert isSorted(a);
     }
