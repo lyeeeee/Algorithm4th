@@ -1,10 +1,13 @@
 package C2_Sort;
 
 import StdLib.StdOut;
+import StdLib.StdRandom;
 
 /**
  * @program: Algorithm4th
- * @description: ${description}
+ * @description: 快速排序,最好的情况下每次都能从中间划分，每次划分需要比较n次，最好的时间复杂度为O(nlogn)
+ * 在最坏的情况下，每次都把数组分为0和n两部分，需要n次划分，
+ * 但是比较的次数则变成了n, n-1, n-2,….1, 所以整个比较次数约为n(n-1)/2~  n2/2.
  * @author: liyi
  * @create: 2019-10-24 17:40
  */
@@ -17,6 +20,7 @@ public class Quick {
      * @param arr the array to be sorted
      */
     public static void sort(Comparable[] arr){
+        StdRandom.shuffle(arr);//打乱数组是为了防止出现最坏情况
         sort(arr, 0 , arr.length-1);
         assert isSorted(arr);
     }
@@ -41,8 +45,8 @@ public class Quick {
                     break;
             }
             while(less(k, arr[--j])){
-                if(j == low)
-                    break;
+                //if(j == low)//这个条件是冗余的，因为切分元素就是arr[low]，它不可能比自己小
+                    //break;
             }
             if(i >= j) break;
             exch(arr, i, j);

@@ -5,11 +5,15 @@ import StdLib.StdRandom;
 
 /**
  * @program: Algorithm4th
- * @description: sorting an array with 3-way partition
+ * @description: sorting an array with 3-way partition  三取样
+ * 使用子数组的一小部分元素的中位数来切分数组（取样大小为 3 并用大小居中的元素效果最好）
+ * || 将取样元素放在数组末尾作为去掉 partition() 中的数组边界测试。
  * @author: liyi
  * @create: 2019-10-25 16:54
  */
 public class Quick3way {
+
+    private static final int CUT_OFF = 7;
     // This class should not be instantiated.
     private Quick3way() { }
 
@@ -25,7 +29,10 @@ public class Quick3way {
 
     // quicksort the subarray from a[lo] to a[hi]
     public static void sort(Comparable[] arr, int low, int high){
-        if(low >= high) return;
+        if(high <= low + CUT_OFF){
+            insertion(arr, low, high);
+            return;
+        }
         Comparable v = arr[low];
         int l = low, r = high;
         int i = l + 1;
@@ -40,6 +47,16 @@ public class Quick3way {
     }
 
 
+    // sort from a[lo] to a[hi] using insertion sort
+    public static void insertion(Comparable[] arr, int low, int high){
+        for(int i = low; i < high; ++i){
+            int j = i + 1;
+            while(j > low && less(arr[j], arr[j-1])) {
+                exch(arr,j , j-1);
+                j--;
+            }
+        }
+    }
 
     /***************************************************************************
      *  Helper sorting functions.

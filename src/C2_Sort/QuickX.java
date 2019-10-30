@@ -1,6 +1,7 @@
 package C2_Sort;
 
 import StdLib.StdOut;
+import StdLib.StdRandom;
 
 /**
  * @program: Algorithm4th
@@ -18,6 +19,7 @@ public class QuickX {
      * @param arr the array to be sorted
      */
     public static void sort(Comparable[] arr){
+        StdRandom.shuffle(arr);
         sort(arr, 0 , arr.length-1);
         assert isSorted(arr);
     }

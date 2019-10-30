@@ -23,7 +23,7 @@ public class BinarySearch {
         return -1;
     }
     public static void main(String[] args) {
-        int[] ints = In.readInts("tinyW.txt");
+        int[] ints = In.readInts("data/tinyW.txt");
         Arrays.sort(ints);
         while(!StdIn.isEmpty()){
             int key =StdIn.readInt();

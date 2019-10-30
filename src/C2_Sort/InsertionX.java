@@ -4,40 +4,38 @@ import StdLib.StdOut;
 
 /**
  * @program: Algorithm4th
- * @description: 希尔排序，交换不相邻的元素以对数组进行局部排序，并最终用插入排序的方法将局部有序数组排序
- * 基于插入排序，是对插入排序的改进。
- *思想是使数组中任意间隔为h的元素都是有序的。换句话说，一个h有序的数组是h个互相独立的有序数组组合在一起的
- * 代码量小，不需要任何的辅助空间
- *
- * 时间复杂度，无法推测  空间复杂度为O(1)
+ * The {@code InsertionX} class provides static methods for sorting
+ * an array using an optimized version of insertion sort (with half exchanges
+ * and a sentinel).
  * @author: liyi
- * @create: 2019-10-22 17:05
+ * @create: 2019-10-30 10:34
  */
-public class Shell {
+public class InsertionX {
     // This class should not be instantiated.
-    private Shell() { }
+    private InsertionX() { }
 
     /**
      * Rearranges the array in ascending order, using the natural order.
      * @param a the array to be sorted
      */
     public static void sort(Comparable[] a) {
-        int length = a.length;
-
-        // 3x+1 increment sequence:  1, 4, 13, 40, 121, 364, 1093, ...
-        //注意需要让增量能够递减到1，这里的 3x + 1保证了能够在除3过程中，增量最终为1，为1即为做一次插入排序
-        int inc = 1;
-        while(inc < a.length/3) inc = inc*3 + 1;
-        while(inc >= 1){
-            for(int  i = inc;i < a.length; ++i){
-                for(int j = i;j >= inc && less(a[j], a[j-inc]);--j)
-                    exch(a, j, j-inc);
+        int n = a.length;
+        int compare = 0;
+        for(int i = n-1;i > 0;--i){
+            if(less(a[i],a[i-1])) {
+                exch(a, i, i - 1);
+                compare++;
             }
-            inc/=3;
+        }
+        if(compare == 0) return;
+
+        for(int i = 1;i < n;++i){
+            for(int j = i; less(a[j],a[j-1]);--j){
+                exch(a, j, j-1);
+            }
         }
         assert isSorted(a);
     }
-
 
 
     /***************************************************************************
@@ -66,13 +64,6 @@ public class Shell {
         return true;
     }
 
-    // is the array h-sorted?
-    private static boolean isHsorted(Comparable[] a, int h) {
-        for (int i = h; i < a.length; i++)
-            if (less(a[i], a[i-h])) return false;
-        return true;
-    }
-
     // print array to standard output
     private static void show(Comparable[] a) {
         for (int i = 0; i < a.length; i++) {
@@ -81,14 +72,14 @@ public class Shell {
     }
 
     /**
-     * Reads in a sequence of strings from standard input; Shellsorts them;
+     * Reads in a sequence of strings from standard input; insertion sorts them;
      * and prints them to standard output in ascending order.
      *
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
         String[] a = new String[]{"a","g","y","z","b","c","c","d"};
-        sort(a);
+        Insertion.sort(a);
         show(a);
     }
 }
