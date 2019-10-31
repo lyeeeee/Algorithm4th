@@ -8,11 +8,11 @@ import java.util.Comparator;
  * @program: Algorithm4th
  * @description: ${description}
  * @author: liyi
- * @create: 2019-10-31 10:06
+ * @create: 2019-10-31 10:11
  */
-public class BubboSort {
+public class BubboSortX {
     // This class should not be instantiated.
-    private BubboSort() { }
+    private BubboSortX() { }
 
     /**
      * Rearranges the array in ascending order, using the natural order.
@@ -26,10 +26,14 @@ public class BubboSort {
 
     public static void sort(Comparable[] a, int beg, int end){
         for(int i = 0;i < end-beg; ++i){
+            boolean exchange = false;
             for(int j = 0;j < end-i; ++ j){
-                if(less(a[j+1], a[j]))
-                    exch(a, j, j+1);
+                if(less(a[j+1], a[j])) {
+                    exch(a, j, j + 1);
+                    exchange = true;
+                }
             }
+            if(!exchange) return;
         }
     }
 
