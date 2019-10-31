@@ -2,17 +2,17 @@ package C2_Sort;
 
 import StdLib.StdOut;
 
+import java.util.Comparator;
+
 /**
  * @program: Algorithm4th
- * The {@code InsertionX} class provides static methods for sorting
- * an array using an optimized version of insertion sort (with half exchanges
- * and a sentinel).
+ * @description: ${description}
  * @author: liyi
- * @create: 2019-10-30 10:34
+ * @create: 2019-10-31 10:06
  */
-public class InsertionX {
+public class BubboSort {
     // This class should not be instantiated.
-    private InsertionX() { }
+    private BubboSort() { }
 
     /**
      * Rearranges the array in ascending order, using the natural order.
@@ -20,32 +20,18 @@ public class InsertionX {
      */
     public static void sort(Comparable[] a) {
         int n = a.length;
-        int compare = 0;
-        for(int i = n-1;i > 0;--i){
-            if(less(a[i],a[i-1])) {
-                exch(a, i, i - 1);
-                compare++;
-            }
-        }
-        if(compare == 0) return;
-
-        for(int i = 1;i < n;++i){
-            for(int j = i; less(a[j],a[j-1]);--j){
-                exch(a, j, j-1);
-            }
-        }
-
-        // insertion sort with half-exchanges
-//        for(int i = 2;i < n; ++i){
-//            Comparable v = a[i];
-//            int j = i-1;
-//            for(;less(v, a[j]);--j)
-//                exch(a,j,j+1);
-//            exch(a,j,i);
-//        }
+        sort(a, 0, n-1);
         assert isSorted(a);
     }
 
+    public static void sort(Comparable[] a, int beg, int end){
+        for(int i = 0;i < end-beg; ++i){
+            for(int j = 0;j < end; ++ j){
+                if(less(a[j+1], a[j]))
+                    exch(a, j, j+1);
+            }
+        }
+    }
 
     /***************************************************************************
      *  Helper sorting functions.
@@ -55,6 +41,12 @@ public class InsertionX {
     private static boolean less(Comparable v, Comparable w) {
         return v.compareTo(w) < 0;
     }
+
+    // is v < w ?
+    private static boolean less(Comparator comparator, Object v, Object w) {
+        return comparator.compare(v, w) < 0;
+    }
+
 
     // exchange a[i] and a[j]
     private static void exch(Object[] a, int i, int j) {
@@ -67,11 +59,32 @@ public class InsertionX {
     /***************************************************************************
      *  Check if array is sorted - useful for debugging.
      ***************************************************************************/
+
+    // is the array a[] sorted?
     private static boolean isSorted(Comparable[] a) {
-        for (int i = 1; i < a.length; i++)
+        return isSorted(a, 0, a.length - 1);
+    }
+
+    // is the array sorted from a[lo] to a[hi]
+    private static boolean isSorted(Comparable[] a, int lo, int hi) {
+        for (int i = lo + 1; i <= hi; i++)
             if (less(a[i], a[i-1])) return false;
         return true;
     }
+
+    // is the array a[] sorted?
+    private static boolean isSorted(Object[] a, Comparator comparator) {
+        return isSorted(a, comparator, 0, a.length - 1);
+    }
+
+    // is the array sorted from a[lo] to a[hi]
+    private static boolean isSorted(Object[] a, Comparator comparator, int lo, int hi) {
+        for (int i = lo + 1; i <= hi; i++)
+            if (less(comparator, a[i], a[i-1])) return false;
+        return true;
+    }
+
+
 
     // print array to standard output
     private static void show(Comparable[] a) {
@@ -81,14 +94,14 @@ public class InsertionX {
     }
 
     /**
-     * Reads in a sequence of strings from standard input; insertion sorts them;
+     * Reads in a sequence of strings from standard input; selection sorts them;
      * and prints them to standard output in ascending order.
      *
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
         String[] a = new String[]{"a","g","y","z","b","c","c","d"};
-        Insertion.sort(a);
+        sort(a);
         show(a);
     }
 }
