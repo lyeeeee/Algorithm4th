@@ -87,6 +87,7 @@ public class Shell {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
+        assert 1+2 == 3;
         String[] a = new String[]{"a","g","y","z","b","c","c","d"};
         sort(a);
         show(a);
