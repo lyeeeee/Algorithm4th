@@ -25,10 +25,10 @@ public class BubboSort {
     }
 
     public static void sort(Comparable[] a, int beg, int end){
-        for(int i = 0;i < end-beg; ++i){
-            for(int j = 0;j < end-i; ++ j){
-                if(less(a[j+1], a[j]))
-                    exch(a, j, j+1);
+        for(int i = beg; i < end - beg;++i){
+            for(int j = 0;j < end - i; ++j){
+                if(less(a[j+1],a[j]))
+                    exch(a,j+1,j);
             }
         }
     }

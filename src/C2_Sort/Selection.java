@@ -80,12 +80,11 @@ public class Selection {
      * @param a the array to be sorted
      */
     public static void sort(Comparable[] a) {
-        int length = a.length;
-        for(int i = 0;i < length-1;++i){
-            int minIndex = i;
-            for(int j = i + 1;j < length;++j){
-                if(less(a[j], a[i]))
-                    exch(a, i, j);
+        int len = a.length;
+        for(int i = 0;i < a.length-1;++i){
+            for(int j = i+1;j < a.length;++j){
+                if(less(a[j],a[i]))
+                    exch(a,j,i);
             }
         }
         assert isSorted(a);

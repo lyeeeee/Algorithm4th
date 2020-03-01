@@ -37,21 +37,16 @@ public class Quick {
     // partition the subarray a[lo..hi] so that a[lo..j-1] <= a[j] <= a[j+1..hi]
     // and return the index j.
     public static int partition(Comparable[] arr, int low, int high){
-        int i = low, j = high+1;
-        Comparable k = arr[i];
-        while(true){
-            while(less(arr[++i], k)){
-                if(i == high)
-                    break;
-            }
-            while(less(k, arr[--j])){
-                //if(j == low)//这个条件是冗余的，因为切分元素就是arr[low]，它不可能比自己小
-                    //break;
-            }
+        int i = low,j = high+1;
+        while (true){
+//            while(less(arr[++i],arr[low])){
+//                if(i == high) break;
+//            }
+            while (less(arr[low],arr[--j]));
             if(i >= j) break;
-            exch(arr, i, j);
+            exch(arr,i,j);
         }
-        exch(arr, j, low);
+        exch(arr,low, j);
         return j;
     }
 

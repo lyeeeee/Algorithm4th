@@ -32,10 +32,12 @@ public class Heap {
      */
     public static void sort(Comparable[] arr){
         int n = arr.length;
-        for(int k = n/2;k >= 1; --k) sink(arr, k, n);
+        for(int k = n/2;k >=1;--k){
+            sink(arr, k, n);
+        }
         while(n > 1){
             exch(arr, 1,n--);
-            sink(arr, 1,n);
+            sink(arr, 1, n);
         }
     }
 
@@ -43,13 +45,13 @@ public class Heap {
      * Helper functions to restore the heap invariant.
      ***************************************************************************/
     private static void sink(Comparable[] arr, int k, int n){
-        while(k * 2 <= n){
-            int j = 2*k;
-            if(j + 1 <= n && less(arr, j,j+1)) j++;
+        while(k*2 <= n){
+            int j = k*2;
+            if(j < n && less(arr,j,j+1)) j++;
             if(!less(arr, k,j)) break;
-            exch(arr, j, k);
+            exch(arr, j,k);
             k = j;
-         }
+        }
     }
 
 
@@ -58,7 +60,7 @@ public class Heap {
      * Indices are "off-by-one" to support 1-based indexing.
      ***************************************************************************/
     private static boolean less(Comparable[] pq, int i, int j) {
-        return pq[i - 1].compareTo(pq[j - 1]) < 0;
+        return pq[i-1].compareTo(pq[j-1]) < 0 ;
     }
 
     private static void exch(Object[] pq, int i, int j) {

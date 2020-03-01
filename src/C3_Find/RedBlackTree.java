@@ -1,6 +1,8 @@
 package C3_Find;
 
+import java.util.LinkedList;
 import java.util.NoSuchElementException;
+import java.util.Queue;
 
 /**
  * @program: Algorithm4th
@@ -100,11 +102,6 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
         root.color = BLACK;
     }
 
-    public void delete(Key key){
-        if (key == null) throw new IllegalArgumentException("argument to delete() is null");
-        if (!contains(key)) return;
-
-    }
 
     // insert the key-value pair in the subtree rooted at h
     private Node put(Node node, Key key, Value value){
@@ -114,9 +111,9 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
         if(compare == 0){
             node.v = value;
         }else if(compare < 0){
-            return node.left = put(node.left,key,value);
+            node.left = put(node.left,key,value);
         }else{
-            return node.right = put(node.right,key,value);
+            node.right = put(node.right,key,value);
         }
         //在插入之后，需要进行树结构和颜色的调整
         //1.插入到了2结点左边，即黑结点左边
@@ -129,6 +126,83 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
 
         node.size = size(node.right) + size(node.left) + 1;
         return node;
+    }
+
+    public void deleteMin(){
+        if (isEmpty()) throw new NoSuchElementException("BST underflow");
+        if(!isRed(root.left) && !isRed(root.right)){
+            root.color = RED;//为把结点提升到root做准备，即将root变为3及以上类型
+        }
+        root = deleteMin(root);
+        if(!isEmpty()) root.color = BLACK;
+    }
+
+    // delete the key-value pair with the minimum key rooted at h
+    private Node deleteMin(Node h) {
+        return null;
+    }
+
+
+    /**
+     * Removes the largest key and associated value from the symbol table.
+     * @throws NoSuchElementException if the symbol table is empty
+     */
+    public void deleteMax() {
+
+        // assert check();
+    }
+
+    // delete the key-value pair with the maximum key rooted at h
+    private Node deleteMax(Node h) {
+        return null;
+    }
+
+    /**
+     * Removes the specified key and its associated value from this symbol table
+     * (if the key is in this symbol table).
+     *
+     * @param  key the key
+     * @throws IllegalArgumentException if {@code key} is {@code null}
+     */
+    public void delete(Key key) {
+
+        // assert check();
+    }
+
+    // delete the key-value pair with the given key rooted at h
+    private Node delete(Node h, Key key) {
+        // assert get(h, key) != null;
+
+        return null;
+    }
+
+    // Assuming that h is red and both h.left and h.left.left
+    // are black, make h.left or one of its children red.
+    private Node moveRedLeft(Node h) {
+        // assert (h != null);
+        // assert isRed(h) && !isRed(h.left) && !isRed(h.left.left);
+        return null;
+
+    }
+
+    // Assuming that h is red and both h.right and h.right.left
+    // are black, make h.right or one of its children red.
+    private Node moveRedRight(Node h) {
+        // assert (h != null);
+        // assert isRed(h) && !isRed(h.right) && !isRed(h.right.left);
+        return null;
+    }
+
+    // restore red-black tree invariant
+    private Node balance(Node h) {//将右斜红边，调整。还有连续的红色，最后反转颜色
+        // assert (h != null);
+        if (isRed(h.right))                      h = rotateLeft(h);
+        if (isRed(h.left) && isRed(h.left.left)) h = retateRight(h);
+        if (isRed(h.left) && isRed(h.right))     flipColors(h);
+
+        h.size = size(h.left) + size(h.right) + 1;
+        return h;
+
     }
 
     public Value max(){
@@ -195,5 +269,37 @@ public class RedBlackTree<Key extends Comparable<Key>,Value> {
             node.left.color = !node.left.color;
             node.right.color = !node.right.color;
         }
+    }
+
+    /**
+     * Returns all keys in the symbol table in the given range,
+     * as an {@code Iterable}.
+     *
+     * @param  lo minimum endpoint
+     * @param  hi maximum endpoint
+     * @return all keys in the sybol table between {@code lo}
+     *    (inclusive) and {@code hi} (inclusive) as an {@code Iterable}
+     * @throws IllegalArgumentException if either {@code lo} or {@code hi}
+     *    is {@code null}
+     */
+    public Iterable<Key> keys(Key lo, Key hi) {
+        if (lo == null) throw new IllegalArgumentException("first argument to keys() is null");
+        if (hi == null) throw new IllegalArgumentException("second argument to keys() is null");
+
+        Queue<Key> queue = new LinkedList<>();
+        // if (isEmpty() || lo.compareTo(hi) > 0) return queue;
+        keys(root, queue, lo, hi);
+        return queue;
+    }
+
+    // add the keys between lo and hi in the subtree rooted at x
+    // to the queue
+    private void keys(Node x, Queue<Key> queue, Key lo, Key hi) {
+        if (x == null) return;
+        int cmplo = lo.compareTo(x.k);
+        int cmphi = hi.compareTo(x.k);
+        if (cmplo < 0) keys(x.left, queue, lo, hi);
+        if (cmplo <= 0 && cmphi >= 0) queue.offer(x.k);
+        if (cmphi > 0) keys(x.right, queue, lo, hi);
     }
 }

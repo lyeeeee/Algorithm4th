@@ -26,9 +26,9 @@ public class Insertion {
      */
     public static void sort(Comparable[] a) {
         int lengh = a.length;
-        for(int i = 1;i < lengh;++i){
-            for(int j = i; j > 0 && less(a[j],a[j-1]);--j){
-                exch(a, j, j-1);
+        for(int i = 0;i < a.length-1;++i){
+            for(int j = i + 1;less(a[j],a[j-1]);--j){
+                exch(a,j,j-1);
             }
         }
         assert isSorted(a);
