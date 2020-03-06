@@ -3,6 +3,8 @@ package C2_Sort;
 import StdLib.StdOut;
 import StdLib.StdRandom;
 
+import java.util.Stack;
+
 /**
  * @program: Algorithm4th
  * @description: 快速排序,最好的情况下每次都能从中间划分，每次划分需要比较n次，最好的时间复杂度为O(nlogn)
@@ -15,6 +17,31 @@ public class Quick {
     // This class should not be instantiated.
     private Quick() { }
 
+    public static void sortWithoutRecursive(Comparable[] arr) {
+        Stack<Integer> s = new Stack<>();
+        s.push(0);
+        s.push(arr.length-1);
+        while (!s.isEmpty()) {
+            int right = s.pop();
+            int left = s.pop();
+            int j = partition(arr, left, right);
+            if (left+1 >= right) continue;
+            else {
+                s.push(left);
+                if (j == left) {
+                    s.push(left);
+                } else {
+                    s.push(j-1);
+                }
+                if (j == right) {
+                    s.push(j);
+                } else {
+                    s.push(j+1);
+                }
+                s.push(right);
+            }
+        }
+    }
     /**
      * Rearranges the array in ascending order, using the natural order.
      * @param arr the array to be sorted
@@ -125,9 +152,9 @@ public class Quick {
      */
     public static void main(String[] args) {
         String[] a = new String[]{"a","g","y","z","b","c","c","d"};
-        Quick.sort(a);
-        show(a);
-        assert isSorted(a);
+//        Quick.sort(a);
+//        show(a);
+//        assert isSorted(a);
 //
 //        // shuffle
 //        StdRandom.shuffle(a);
@@ -138,5 +165,7 @@ public class Quick {
 //            String ith = (String) Quick.select(a, i);
 //            StdOut.println(ith);
 //        }
+        Quick.sortWithoutRecursive(a);
+        show(a);
     }
 }
