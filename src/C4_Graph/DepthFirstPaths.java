@@ -11,6 +11,9 @@ import java.util.Stack;
 public class DepthFirstPaths {
 
     private boolean[] visited;
+    /**
+     * 从起点到一个顶点的已知路径上的最后一个顶点
+     * */
     private int[] pathTo;
     private int start;
 
@@ -38,8 +41,11 @@ public class DepthFirstPaths {
         if (!hasPathTo(v)) return null;
         else {
             Stack<Integer> stack = new Stack<>();
-
+            for (int i = v; i != start; i = pathTo[i]) {
+                stack.push(i);
+            }
+            stack.push(start);
+            return stack;
         }
-        return null;
     }
 }

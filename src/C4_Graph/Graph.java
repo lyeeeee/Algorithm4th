@@ -17,7 +17,13 @@ import StdLib.StdOut;
  */
 public class Graph {
 
+    /**
+     * 点数
+     * */
     private final int V;
+    /**
+     * 边数
+     * */
     private int E;
     private Bag<Integer>[] adjcent;
 
